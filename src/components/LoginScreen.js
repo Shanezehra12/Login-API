@@ -1,48 +1,24 @@
 import React, { useState, Alert, useEffect } from "react";
 import "./LoginScreen.css";
-import { Link } from "react-router-dom";
+import axios from "axios";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  /*  useEffect(() => {
-    if(localStorage.getItem("user-info")) {
-      history.push("/add")
-    }
-  })  */
-
-  ///////////////////////////////////////////////////////////////////////////////////////////
-  const handleLogin = () => {
-    fetch(
-      "http://poswebapi.hemanical.com/api/Users/Login/" +
-        username +
-        "/" +
-        password +
-        ""
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Check the response from the API
-        if (data.success) {
-          // Login successful, navigate to the next screen or perform necessary actions
-        } else {
-          // Login failed, show an error message
-          Alert.alert(
-            "Login Failed",
-            "Please check your username and password."
-          );
+  const handleLogin = async () => {
+    try {
+      const response = await axios.get(
+        "http://poswebapi.hemanical.com/api/Users/Login",
+        {
+          username: username,
+          password: password,
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  /* const handleLogin = () => {
-    console.warn(username,password)
-  } */
-  /////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div>
@@ -67,9 +43,7 @@ const LoginScreen = () => {
             />
           </div>
 
-          <Link to="/logout">
-            <button onClick={handleLogin}>Login</button>
-          </Link>
+          <button onClick={handleLogin}>Login</button>
         </form>
       </div>
     </div>

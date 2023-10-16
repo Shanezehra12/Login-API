@@ -1,12 +1,9 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import LogOutScreen from './components/LogOutScreen'
-import Sample from './components/Sample'
-import Login from './components/Login'
+import LoginScreen from './components/LoginScreen'
 
 const App = () => {
   return (
-    <Login/>
+    <LoginScreen/>
   )
 }
 
